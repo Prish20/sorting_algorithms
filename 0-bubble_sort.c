@@ -4,11 +4,9 @@
  * @a: The first integer to swap.
  * @b: The second integer to swap.
  */
-void swap_ints(int *a, int *b)
+inline void swap_ints(int *a, int *b)
 {
-	int tmp;
-
-	tmp = *a;
+	int tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
@@ -31,6 +29,7 @@ void bubble_sort(int *array, size_t size)
 	for (i = 0; i < size - 1; i++)
 	{
 		swapped = false;
+
 		for (j = 0; j < size - i - 1; j++)
 		{
 			if (array[j] > array[j + 1])
@@ -40,6 +39,7 @@ void bubble_sort(int *array, size_t size)
 				swapped = true;
 			}
 		}
+
 		if (swapped == false)
 			break;
 	}
