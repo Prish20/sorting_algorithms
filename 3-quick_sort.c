@@ -1,11 +1,11 @@
 #include "sort.h"
 
 /**
- * swap - swap two integers
- * @a: first integer
- * @b: second integer
+ * swap_elements - swaps two elements of an array
+ * @a: first element
+ * @b: second element
  */
-void swap(int *a, int *b)
+void swap_elements(int *a, int *b)
 {
 	int temp = *a;
 	*a = *b;
@@ -13,76 +13,63 @@ void swap(int *a, int *b)
 }
 
 /**
- * partition - partition the array
+ * partition_scheme - partitions the array
  * @array: array to partition
- * @low: low index
- * @high: high index
- * @size: size of array
- * Return: index of pivot
+ * @size: size of the array
+ * @start: starting index
+ * @end: ending index
+ * Return: partition index
  */
-int partition(int *array, int low, int high, size_t size)
+int partition_scheme(int *array, size_t size, int start, int end)
 {
-	int pivot = array[high];
-	int i = low - 1;
-	int j;
+	int pivot = array[end];
+	int lower = start - 1;
 
-	for (j = low; j <= high - 1; j++)
+	int upper;
+
+	for (upper = start; upper < end; upper++)
 	{
-		if (array[j] < pivot)
+		if (array[upper] < pivot)
 		{
-			i++;
-			if (i != j)
-			{
-				swap(&array[i], &array[j]);
-				print_array(array, size);
-			}
+			lower++;
+			swap_elements(&array[lower], &array[upper]);
+			print_array(array, size);
 		}
 	}
 
-	if (i + 1 != high)
-	{
-		swap(&array[i + 1], &array[high]);
-		print_array(array, size);
-	}
+	swap_elements(&array[lower + 1], &array[end]);
+	print_array(array, size);
 
-	return (i + 1);
+	return (lower + 1);
 }
 
 /**
- * quick_sort_helper - helper function for quick_sort
+ * quicksort_recursive - recursive function for quicksort
  * @array: array to sort
- * @low: low index
- * @high: high index
- * @size: size of array
+ * @size: size of the array
+ * @start: starting index
+ * @end: ending index
  */
-void quick_sort_helper(int *array, int low, int high, size_t size)
+void quicksort_recursive(int *array, size_t size, int start, int end)
 {
-	while (low < high)
+	if (start < end)
 	{
-		int pi = partition(array, low, high, size);
+		int partition_index = partition_scheme(array, size, start, end);
 
-		if (pi - low < high - pi)
-		{
-			quick_sort_helper(array, low, pi - 1, size);
-			low = pi + 1;
-		}
-		else
-		{
-			quick_sort_helper(array, pi + 1, high, size);
-			high = pi - 1;
-		}
+		quicksort_recursive(array, size, start, partition_index - 1);
+		quicksort_recursive(array, size, partition_index + 1, end);
 	}
 }
 
 /**
- * quick_sort - sort an array of integers in ascending order
+ * quick_sort - sorts an array of integers in ascending order
  * @array: array to sort
- * @size: size of array
+ * @size: size of the array
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array == NULL || size <= 1)
+	if (array == NULL || size < 2)
 		return;
 
-	quick_sort_helper(array, 0, size - 1, size);
+	quicksort_recursive(array, size, 0, size - 1);
 }
