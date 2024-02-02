@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/adrian/ALX/sorting_algorithms/",
+                "/usr/include/**",
+                "/usr/local/include/**"
+            ],
+            "defines": [],
+            "intelliSenseMode": "${default}",
+            "cStandard": "c89",
+            "forcedInclude": [],
+            "browse": {
+                "path": []
+            }
+        }
+    ],
+    "version": 4
+}
